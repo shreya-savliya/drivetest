@@ -1,0 +1,47 @@
+<%- include('./partials/header.ejs') -%>
+
+<body>
+  <!-- Navigation-->
+  <%- include('./partials/navbar.ejs') -%>
+  <main class="mb-4">
+    <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+          <h1>Drivers ready for Drive Test</h1>
+          <form action="/examiner/drivers" method="GET">
+            <select name="testType">
+              <option value="" <% if (!testType) { %>selected<% } %>>All</option>
+              <option value="G2" <% if (testType === 'G2') { %>selected<% } %>>G2 Test</option>
+              <option value="G" <% if (testType === 'G') { %>selected<% } %>>G Test</option>
+            </select>
+            <button type="submit">Filter</button>
+          </form>
+          
+          <ul>
+            <%= message %>
+            <% drivers.forEach(driver => { %>
+              <div class="card mb-3" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title"><%= driver.firstName %> <%= driver.lastName %></h5>
+                  <h6 class="card-subtitle mb-2 text-muted">License_No: <%= driver.License_No %></h6>
+                  <h6 class="card-subtitle mb-2 text-muted">Test Type: <%= driver.testType %></h6>
+                  <h6 class="card-text mt-3">Car Name: <%= driver.car_details.make %></h6>
+                  <h6 class="card-text ">Car Model: <%= driver.car_details.make %></h6>
+                  <h6 class="card-text ">Car PlatNo: <%= driver.car_details.platno %></h6>
+                  <% if (driver.isevaluatedDone) { %>
+                    <p style="color: red;">Evaluated</p>
+                  <% } else { %>
+                    <a href="/examiner/comment/<%= driver.id %>" class="card-link" style="color: blue;">evaluate</a>
+                  <% } %>
+                </div>
+              </div>
+            <% }); %>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

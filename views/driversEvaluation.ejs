@@ -1,0 +1,47 @@
+<%- include('./partials/header.ejs') -%>
+
+<body>
+  <!-- Navigation-->
+  <%- include('./partials/navbar.ejs') -%>
+  <main class="mb-4">
+    <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+          <h1>Pass Candidates</h1>
+          <ul>
+            <% passCandidates.forEach(candidate => { %>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title"><%= candidate.firstName %> <%= candidate.lastName %></h5>
+                  <h6 class="card-subtitle mb-2 text-muted">License_No: <%= candidate.License_No %></h6>
+                  <h6 class="card-subtitle mb-2 text-muted">Test Type: <%= candidate.testType %></h6>
+                  <h6 class="card-text mt-3">Car Name: <%= candidate.car_details.make %></h6>
+                  <h6 class="card-text ">Car Model: <%= candidate.car_details.make %></h6>
+                  <h6 class="card-text ">Car PlatNo: <%= candidate.car_details.platno %></h6>
+                </div>
+              </div>
+            <% }); %>
+          </ul>
+
+          <h1>Fail Candidates</h1>
+          <ul>
+            <% failCandidates.forEach(candidate => { %>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <h5 class="card-title"><%= candidate.firstName %> <%= candidate.lastName %></h5>
+                  <h6 class="card-subtitle mb-2 text-muted">License_No: <%= candidate.License_No %></h6>
+                  <h6 class="card-subtitle mb-2 text-muted">Test Type: <%= candidate.testType %></h6>
+                  <h6 class="card-text mt-3">Car Name: <%= candidate.car_details.make %></h6>
+                  <h6 class="card-text ">Car Model: <%= candidate.car_details.make %></h6>
+                  <h6 class="card-text ">Car PlatNo: <%= candidate.car_details.platno %></h6>
+                </div>
+              </div>
+            <% }); %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

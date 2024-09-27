@@ -1,0 +1,141 @@
+<%- include('./partials/header.ejs') -%>
+
+<body>
+  <!-- Navigation-->
+  <%- include('./partials/navbar.ejs') -%>
+
+  <main class="mb-4">
+    <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+
+          <form action="/g2" method="post" id="userForm">
+           <p style="color: red;"><%= myMsg %></p>
+
+            <div class="bg-secondary p-2 text-light">
+              <h4>Personal Information</h4>
+            </div>
+
+            <div class="container text-center">
+              <div class="form-floating mb-3">
+                <input class="form-control" id="firstName" type="text" placeholder="Enter first name" name="firstName" value=<%= userData.firstName %> required />
+                <label for="firstName">First Name</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input class="form-control" id="lastName" type="text" placeholder="Enter last name" name="lastName" value=<%= userData.lastName %> required />
+                <label for="lastName">Last Name</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input class="form-control" id="name" type="text" placeholder="Enter license number" name="licenseNumber" value=<%= userData.License_No %> required />
+                <label for="licenseNumber">License Number</label>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="age" name="age" type="number" placeholder="Enter age" value=<%= userData.age %> required />
+                    <label for="age">Age</label>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="name" type="date" placeholder="Date of Birth" name="dob" value=<%= userData.dob %> />
+                    <label for="dob">DOB</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-secondary p-2 text-light mb-3">
+              <h4>Appointment Date</h4>
+            </div>
+            
+            <div class="col">
+              <div class="form-floating mb-3">
+                <input class="form-control" id="appointmentDate" type="date" onchange="" name="appointmentDate" value=<%=  getCurrentDate()%> />
+                <label for="appointmentDate">Date</label>
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="form-floating mb-3">
+                <select class="form-select mb-3" aria-label="example" name="time" required>
+                  <% slots.forEach(slot => { %>
+                  <option value="<%= slot.appointmentTime %>"><%= slot.appointmentTime %></option>
+                  <% }); %>
+                </select>
+                <label for="time">Slots</label>
+              </div>
+            </div>
+            <div class="bg-secondary p-2 text-light">
+              <h4>Car Information</h4>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input class="form-control" id="name" type="text" name="make" value=<%= userData.car_details.make %> required />
+              <label for="make">ie make</label>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input class="form-control" id="model" name="model" type="text" value=<%= userData.car_details.model %> required />
+                  <label for="model">Model</label>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-floating mb-3">
+                  <input class="form-control" type="number" min="2000" max="2099" name="year" id="year" value=<%= userData.car_details.year %> required />
+                  <label for="year">Year</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input class="form-control" id="platnumber" name="platno" type="text" value=<%= userData.car_details.platno %> required />
+              <label for="platno">Plat Number</label>
+            </div>
+
+            <div class="d-grid gap-2 justify-content-md-end">
+              <input class="btn btn-outline-secondary rounded" type="submit" value="Book G2 Test">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    </div>
+  </main>
+  <script>
+    async function fetchSlots() {
+      const selectedDate = document.getElementById('appointmentDate').value;
+      console.log(selectedDate, "selectedDate")
+      try {
+        const response = await fetch(`/get-slots?date=${selectedDate}`);
+        const slots = await response.json();
+        const slotsDropdown = document.querySelector('select[name="time"]');
+        slotsDropdown.innerHTML = '';
+  
+        if (slots.length > 0) {
+          slots.forEach(slot => {
+            const option = document.createElement('option');
+            option.value = slot.appointmentTime;
+            option.textContent = slot.appointmentTime;
+            slotsDropdown.appendChild(option);
+          });
+        } else {
+          const option = document.createElement('option');
+          option.textContent = 'No slots available';
+          slotsDropdown.appendChild(option);
+        }
+      } catch (error) {
+        console.error('Error fetching slots:', error);
+      }
+    }
+  
+    window.addEventListener('load', fetchSlots);
+  
+    document.getElementById('appointmentDate').addEventListener('change', fetchSlots);
+    document.getElementById('appointmentGDate').addEventListener('change', fetchSlots);
+    
+  </script>
+  
+</body>
+
+</html>

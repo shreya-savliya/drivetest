@@ -1,0 +1,27 @@
+<%- include('./partials/header.ejs') -%>
+
+<body>
+  <!-- Navigation-->
+  <%- include('./partials/navbar.ejs') -%>
+  <main class="mb-4">
+    <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+          <h1>Evaluate Driver</h1>
+          <form action="/examiner/comment/<%= driverId %>" method="POST">
+            <textarea name="comment" rows="4" cols="50"></textarea>
+            <br>
+            <label for="pass">Pass</label>
+            <input type="radio" id="pass" name="result" value="pass">
+            <label for="fail">Fail</label>
+            <input type="radio" id="fail" name="result" value="fail">
+            <br>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

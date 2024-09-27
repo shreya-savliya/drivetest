@@ -1,0 +1,23 @@
+<%- include('./partials/header.ejs') -%>
+
+<body>
+  <!-- Navigation-->
+  <%- include('./partials/navbar.ejs') -%>
+  <div id="appointment-form">
+    <h2>Add Appointment Slot</h2>
+    <p style="color:red"><%= msg %></p>
+    <form id="add-appointment-form" action="/appointment" method="post">
+      <label for="appointment-date">Date:</label>
+      <input type="date" id="appointment-date" required name="appointmentDate"/>
+      <label for="appointment-time">Time:</label>
+      <select id="appointment-time" name="time" required>
+        <% slots.forEach(slot => { %>
+        <option value="<%= slot %>"><%= slot %></option>
+        <% }); %>
+      </select>
+      <button type="submit">Add Appointment Slot</button>
+    </form>
+  </div>
+</body>
+
+</html>

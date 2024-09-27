@@ -1,0 +1,62 @@
+<%- include('./partials/header.ejs') -%>
+
+<body>
+  <!-- Navigation-->
+  <%- include('./partials/navbar.ejs') -%> <main class="mb-4">
+    <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+          <h2 class="text-center">Login Form</h2>
+          <form method="post" action="/login">
+            <div class="form-floating mb-3">
+              <input class="form-control" name="username" id="username" type="text" placeholder="Enter your username..." data-sb-validations="required," />
+              <label for="username">username</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password..." />
+              <label for="password">Password</label>
+            </div>
+            <div class="d-grid gap-2 justify-content-md-center">
+              <button type="submit" class="btn btn-secondary rounded mb-4">
+                Login
+              </button>
+            </div>
+          </form>
+
+          <h2 class="text-center">SignUp Form</h2>
+
+          <form id="contactForm" method="post" action="/signup">
+            <div class="form-floating mb-3">
+              <input class="form-control" id="username" name="username" type="text" placeholder="Enter your username..." data-sb-validations="required" />
+              <label for="username">Username</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input class="form-control" id="password" name="password" type="password" placeholder="Enter your password..." data-sb-validations="required" />
+              <label for="password">Password</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input class="form-control" id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm your password..." data-sb-validations="required" />
+              <label for="confirmPassword">Confirm Password</label>
+            </div>
+            <div class="form-floating mb-3">
+              <select class="form-select" id="userType" name="userType">
+                <option value="" disabled selected>Select user type...</option>
+                <option value="Driver">Driver</option>
+                <option value="Examiner">Examiner</option>
+                <option value="Admin">Admin</option>
+              </select>
+              <label for="userType">User Type</label>
+            </div>
+            
+            <div class="d-grid gap-2 justify-content-md-center">
+              <button type="submit" class="btn btn-secondary rounded">SignUp</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>
